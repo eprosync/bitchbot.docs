@@ -1,0 +1,56 @@
+Bitch Bot LLC - Core - All Rights Reserved (this is a joke lmao)
+Commands - A universal commands system that can tie into chat systems
+
+commands:new(name: string): CommandObject
+- creates a new command that the player can run
+
+commands:remove(name: string)
+- removes a command from registry
+
+commands:register(datatype: {[index: any]: any}, name: string): nil
+- registers a new argument data type for the commands
+
+commands:process(message: string): boolean
+- processes a message to be handled
+- if this returns true, you should halt the message being sent
+- depending on the developers, this could already be implemented into the chat system
+
+#properties
+
+commands.enum: Enum.Commands
+- just for easy access to the enum system
+
+#CommandObject
+
+cmd:call(...: any): any
+- calls the callback assigned
+- you shouldn't really use this
+
+cmd:setCallback(callback: function): CommandObject
+- sets the command's function callback for when it is ran
+
+cmd:addArg(arg: { name: string, type: Enum.Commands.DataTypes, description?: string, required?: boolean }): CommandObject
+- adds a new argument to look for in the command
+
+cmd:setArgs(arg: { name: string, type: Enum.Commands.DataTypes, description?: string, required?: boolean }[]): CommandObject
+- sets the command's arguments
+
+cmd:setDescription(message?: string): CommandObject
+- sets the command's description
+
+cmd:setCondition(callback?: function): CommandObject
+- sets the condition needed for this command to be ran
+- no notification will be given if the condition fails
+
+cmd:setEnabled(state: boolean): CommandObject
+- if a command isn't enabled it will be hidden from usage
+
+#CommandArgument
+- these are structures you can override to register as an argument using
+- `commands:register(datatype: {[index: any]: any}, name: string): nil`
+
+arg:is(value: string | nil): boolean
+- used to check if the passed argument is of the correct type
+
+arg:process(value: string | nil): boolean
+- used to process and convert the value into the desired type

@@ -1,0 +1,111 @@
+Bitch Bot LLC - Core - All Rights Reserved (this is a joke lmao)
+Router² - A powerful all-in-one multi-box controller for botting mayhem
+
+router:new(options: table): RouterObject
+- creates a new router connection to the backend
+- here's a list of options
+{
+    name: string,
+    password?: string,
+    metadata?: string
+}
+
+#RouterObject
+    - A class created from router:new(options: table): RouterObject
+
+    object:login(): nil
+    - logs into the back-end to create a network
+
+    object:logout(): nil
+    - logs out of the network (if there are no users on the network, it will be removed as well)
+
+    object:wait(): nil
+    - used to hold the thread till the login process is done
+
+    object:isReady(): nil
+    - used to check if it has successfully logged in
+
+    object:getNetworkId(): string | nil
+    - get's this router's network ID, this is used for communication and identification
+    - this will only be "nil" if not logged in
+
+    object:setMetaData(data: string | nil): nil
+    - set's the metadata of this router
+    - metadata is something that clients have stored onto them, you can use this to
+    - identify certain clients if needed
+
+    object:getMetaData(): string | nil
+    - gets the metadata of this router
+
+    object:getClients(): RouterClient[]
+    - gets all the clients that are logged into the network
+
+    object:getClientByNetworkId(id: string): RouterClient | nil
+    - gets a specific client using their network ID
+
+    object:broadcast(...: any): nil
+    - sends a message to all the client on the network
+
+    object:send(target: string | RouterClient | string[] | RouterClient[], ...: any): nil
+    - sends a message to a specific set of user(s) on the network
+
+    object:remove()
+    - logs out and removes the router from the local registry
+
+    ##Events
+    - all events can be connected to via library:connect(name: string, callback: function, identity?: string): EventConnection
+    - for more information please see documentation under "events"
+
+    login(success: boolean, error?: string): nil
+    - called when you login to the network
+
+    logout(reason?: string): nil
+    - called when you log out of the network
+
+    join(client: RouterClient): nil
+    - called when a client connects to the network
+
+    leave(client: RouterClient): nil
+    - called when a client leaves the network
+
+    metadata(client: RouterClient): nil
+    - called when a client changes their metadata
+    
+    receive(client: RouterClient, ...: any): nil
+    - called when a message is being received from a client
+
+    error(err: string): nil
+    - called when an error occurs
+
+#RouterClient
+    - An interface created from clients joining the network
+
+    client:getRouter(): Router
+    - gets the router responsible for this client (not their router, but the current one)
+
+    client:getNetworkId(): string
+    - gets their network ID, this ID is unique per client and is used to identify and network messages
+
+    client:getMetaData(): string | nil
+    - gets their metadata
+    
+    client:getAccount(): string
+    - gets their bbot account name
+    
+    client:getUID(): number
+    - gets their bbot account UID
+    
+    client:getUsername(): string
+    - gets their roblox username
+
+    client:getUserId(): string
+    - gets their roblox userid
+
+    client:getGameId(): string
+    - gets their gameID
+
+    client:getPlaceId(): string
+    - gets their placeID
+
+    client:getJobId(): string
+    - gets their jobID

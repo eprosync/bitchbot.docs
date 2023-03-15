@@ -1,0 +1,86 @@
+Bitch Bot LLC - Phantom Forces - All Rights Reserved (this is a joke lmao)
+Replication - A library for interacting with character replication systems on PF
+- Note:
+- Replication system uses ObjectLinker, to see more functions, please decompile the game
+- and look for ReplicationObject & ReplicationObject.ThirdPersonObject for more info
+
+replication:get(player: Player): ReplicationBridge
+- get's the replication bridge of a player
+
+replication:getByObject(object: ReplicationObject): ReplicationBridge
+- get's the replication bridge by the object responsible for it
+
+replication:getAll(): ReplicationBridge[]
+- returns a numerical list of replication bridges
+
+replication:getAllEnemies(): ReplicationBridge[]
+- returns a numerical list of replication bridges that are enemies
+
+replication:getAllFriendlies(): ReplicationBridge[]
+- returns a numerical list of replication bridges that are friendly
+
+#Events
+- all events can be connected to via replication:connect(name: string, callback: function, identity?: string): EventConnection
+- for more information please see documentation under "events"
+
+preSpawn(bridge: ReplicationBridge, position: Vector3, weapons: WeaponData[]): nil
+- called before :spawn is called
+
+postSpawn(bridge: ReplicationBridge, position: Vector3, weapons: WeaponData[]): nil
+- called after :spawn is called
+
+preDespawn(bridge: ReplicationBridge): nil
+- called before :despawn is called
+
+postDespawn(bridge: ReplicationBridge): nil
+- called after :despawn is called
+
+preStep(bridge: ReplicationBridge): nil
+- called before :step is called
+- this is the calculation area of the replicator, not renderer
+
+postStep(bridge: ReplicationBridge): nil
+- called after :step is called
+- this is the calculation area of the replicator, not renderer
+
+preRender(bridge: ReplicationBridge, cull_level: number, render_wep: boolean, torso_cf: CFrame, velocity: Vector3, angle: Vector2): nil
+- called before :render is called
+
+postRender(bridge: ReplicationBridge, cull_level: number, render_wep: boolean, torso_cf: CFrame, velocity: Vector3, angle: Vector2): nil
+- called after :render is called
+
+#ReplcationBridge
+
+bridge:getPlayer(): Player
+- get's the player of the replicator
+
+bridge:getObject(): ReplicationObject
+- get's the ReplcationObject of the bridge
+- usually it is dangerious to access this
+
+bridge:isAlive(): boolean
+- checks if they are spawned in
+
+bridge:hasThirdPerson(): boolean
+- checks if the ThirdPersonObject is running
+
+bridge:isReady(): boolean
+- checks if the ReplicationSmoother has sufficent data to be rendering
+
+bridge:getAbsolutePosition(): Vector3
+- returns an absolute form which is the exact position on the server
+
+bridge:getAbsoluteVelocity(): Vector3
+- returns an absolute form which is the exact velocity on the server
+
+bridge:getPosition(): Vector3
+- returns their position, smoothened by the replication system
+
+bridge:getVelocity(): Vector3
+- returns their velocity, smoothened by the replication system
+
+bridge:getAngles(): Vector2
+- returns their eye angles
+
+bridge:isLagging(): boolean 
+- checks if they have lagged out

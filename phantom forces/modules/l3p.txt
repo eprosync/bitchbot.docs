@@ -1,0 +1,12 @@
+Bitch Bot LLC - Phantom Forces - All Rights Reserved (this is a joke lmao)
+L3P - A library for thirdperson
+
+l3p:getBridge(): ReplicationBridge
+- Returns the replication bridge for your player
+
+l3p:setAlive(alive: boolean): nil
+- Sets the alive state of the thirdperson
+- Yes, this will not spawn it if you are dead...
+
+l3p:isAlive(): boolean
+- Checks if your 3P character is spawned in or not

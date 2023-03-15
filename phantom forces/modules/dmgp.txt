@@ -1,0 +1,26 @@
+Bitch Bot LLC - Phantom Forces - All Rights Reserved (this is a joke lmao)
+DMGP - A library for predicting damage accumulation by latency
+- Note:
+- Some functions aren't being documented till a better naming convention is used here
+
+dmgp:getDamage(entity: Player): number
+- gets the current damage done to a player
+
+dmgp:getHealth(entity: Player): number
+- gets the current health of a player
+
+dmgp:isAlive(entity: Player): boolean
+- checks if the player is alive
+
+#Events
+- all events can be connected to via library:connect(name: string, callback: function, identity?: string): EventConnection
+- for more information please see documentation under "events"
+
+alive(entity: Player): nil
+- called when the player's state changes to alive
+
+died(entity: Player): nil
+- called when the player's state changes to dead
+
+dealt(entity: Player, damage: number): nil
+- called when damage is dealt to a player

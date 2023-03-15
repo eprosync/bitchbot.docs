@@ -1,0 +1,58 @@
+Bitch Bot LLC - Core - All Rights Reserved (this is a joke lmao)
+Expose - A library like Discovery, but allows you to view users across servers
+- *Note: Expose is a sub-category of Discovery that allows bbot users to set their identity to public across an entire game world
+- this also means you can find and join their game if they wanted to
+
+interface PlayerData {
+    Username: string,
+    UserId: string,
+    GameId: string,
+    PlaceId: string,
+    JobId: string
+}
+
+interface UserData {
+    name: string,
+    index: number - this is their UID
+}
+
+expose:getAll(): ExposeData[]
+- gets a list of all publicly available bbot users
+
+expose:get(id: string): ExposeData | nil
+- gets a bbot user based on their ID
+
+expose:getByUID(uid: number): ExposeData | nil
+- gets a bbot user based on the UID
+
+expose:getByUserId(userId: string): ExposeData | nil
+- gets a bbot user based on the UserId
+
+#ExposeData
+- the data received by expose
+
+data:getId(): string
+- their unique ID
+
+data:getTime(): number
+- their time localized to your timezone
+
+data:getUTCTime(): number
+- their time in UTC (aka GMT-0)
+- you can use os.time() to compare how long they are in the game
+
+data:getRoblox(): PlayerData
+- gets their roblox account information
+
+data:getAccount(): UserData
+- gets their bbot account information
+
+#Events
+- all events can be connected to via library:connect(name: string, callback: function, identity?: string): EventConnection
+- for more information please see documentation under "events"
+
+joined(player: ExposeData)
+- when a bbot user connects to expose
+
+leave(player: ExposeData)
+- when a bbot user disconnects from expose

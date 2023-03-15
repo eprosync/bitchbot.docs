@@ -1,0 +1,15 @@
+Bitch Bot LLC - Core - All Rights Reserved (this is a joke lmao)
+BotNet - A P2P network with a server-side medium utilizing router² to create effective and powerful universal botnets
+- Because why not, someone is going to do this anyways, might as well be sorta the first to do so :)
+- *This is all derived from a library called "router²", please check the documentation on it first
+- *All functions are derived from RouterObject
+- *Note: the table "botnet" is a RouterObject
+
+botnet:getMaster(): RouterClient | nil
+- gets the master controller of all the bots
+
+botnet:setMaster(): Router
+- sets the master controller of all the bots
+
+botnet:isMaster(): boolean
+- checks if you are the master controller

@@ -1,0 +1,36 @@
+Bitch Bot LLC - Core - All Rights Reserved (this is a joke lmao)
+Discovery - Allows you to identify and view other bbot users using the backend
+- *Note: Discovery already uses virtualized priority, no need to add your own priority
+- Discovery is only for users that are in your server
+- For global user detection, we suggest using Expose, a sub-library of Discovery
+
+interface PlayerData {
+    Username: string,
+    UserId: string,
+    GameId: string,
+    PlaceId: string,
+    JobId: string,
+
+    - this is specific to bbot
+    Account: string,
+    UID: number
+}
+
+discovery:getAll(): Player[]
+- gets a list of all bbot users currently in your server
+
+discovery:get(player: Player): PlayerData | nil
+- gets the raw discovery data of a bbot user
+
+discovery:getByUID(id: number): PlayerData[] | nil
+- gets a list of all bbot users under a UID
+
+#Events
+- all events can be connected to via library:connect(name: string, callback: function, identity?: string): EventConnection
+- for more information please see documentation under "events"
+
+joined(data: PlayerData, player: Player)
+- when a bbot user joins the server
+
+leave(data: PlayerData, player: Player)
+- when a bbot user leaves the server

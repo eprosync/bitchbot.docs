@@ -1,0 +1,52 @@
+Bitch Bot LLC - Phantom Forces - All Rights Reserved (this is a joke lmao)
+Votekick - A library for interacting and manipulating the votekick system
+
+votekick:call(target: string, reason: string): nil
+- calls a votekick on a player, cannot be called until rank 25
+
+votekick:vote(answer: string): nil
+- casts a vote on an active votekick window
+- answer - yes, no, or dismiss options
+
+votekick:canCall(): boolean
+- checks if you are able to create a votekick based on your restrictions
+- ^ like rank and such
+
+votekick:isReady(): boolean
+- checks if you are able to place a votekick
+- unlike `votekick:canCall()` this checks if the timer for the current votekick is done
+
+votekick:canVote(): boolean
+- checks if your window opportunity is available to place votes
+
+votekick:isActive(): boolean
+- checks if there is currently a votekick active
+- this includes the cooldown of the votekick
+
+votekick:getCaller(): Player | nil
+- gets who called the previous or current votekick
+
+votekick:getTarget(): Player | nil
+- gets the target the votekick was designated for
+
+votekick:getTimeLeft(): number
+- gets the time left till a new votekick can be placed
+
+votekick:isKickable(): boolean
+- checks if the next votekick has a possibility of kicking you
+
+#Events
+- all events can be connected to via library:connect(name: string, callback: function, identity?: string): EventConnection
+- for more information please see documentation under "events"
+
+start(initiator: Player | nil, target: Player | nil): nil
+- called when a votekick has started
+
+success(initiator: Player | nil, target: Player | nil): nil
+- called when the votekick successfully kicks a target
+
+fail(initiator: Player | nil, target: Player | nil): nil
+- called when the votekick fails to kick a target
+
+kicked(initiator: Player | nil, target: Player | nil): nil
+- called when you have been kicked from the server

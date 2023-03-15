@@ -1,0 +1,107 @@
+Bitch Bot LLC - Phantom Forces - All Rights Reserved (this is a joke lmao)
+Weapons - A library for directly accessing weapon controllers
+- Note:
+- Weapons system uses ObjectLinker, to see more functions, please decompile the game
+- and look for FirearmObject, MeleeObject & GrenadeObject for more info
+
+weapons:isAlive(): boolean
+- like character:isAlive() but for weapons
+
+weapons:getIndex(): number | false
+- get's the current weapon index, (as in what you are holding)
+
+weapons:getAll(): (FirearmObject | MeleeObject | GrenadeObject)[] | false
+- gets a list of all weapons currently equipped
+
+weapons:getActiveWeapon(): FirearmObject | MeleeObject | GrenadeObject | false
+- gets the current weapon controller
+
+weapons:isFirearm(weapon?: any): boolean
+- checks if either the current or provided weapon is a FirearmObject
+
+weapons:isMelee(weapon?: any): boolean
+- checks if either the current or provided weapon is a MeleeObject
+
+weapons:isGrenade(weapon?: any): boolean
+- checks if either the current or provided weapon is a GrenadeObject
+
+weapons:getClass(weapon?: any): string | false
+- gets either the current or provided weapon class name
+
+#Events
+- all events can be connected to via library:connect(name: string, callback: function, identity?: string): EventConnection
+- for more information please see documentation under "events"
+
+preModifyData(weapon_data: {[index: any]: any}, attachments: {[index: any]: any}, skins: {[index: any]: any}): nil
+- just before weapon modifications (as in attachment & skin applying) this is called
+
+postModifyData(weapon_data: {[index: any]: any}, attachments: {[index: any]: any}, skins: {[index: any]: any}): nil
+- just after weapon modifications (as in attachment & skin applying) this is called
+
+onChanged(prev: FirearmObject | MeleeObject | GrenadeObject, current: FirearmObject | MeleeObject | GrenadeObject): nil
+- called when you swap weapons
+
+## FirearmObject
+    preFirearmStep(): nil
+    - called just before step
+    
+    postFirearmStep(): nil
+    - called just after step
+    
+    preFirearmFireStep(): nil
+    - called just before FireRound
+    
+    postFirearmFireStep(): nil
+    - called just after FireRound
+
+    modifyFirearmStat(name: string, value: any): any
+    - modifies stats live
+    - if there is a table being passed, be sure to clone & return the table
+    - or else you will modify the weapon permanently
+
+    modifyFirearmActiveStat(name: string, value: any): any
+    - modifies stats live that are per-aiming state
+    - if there is a table being passed, be sure to clone & return the table
+    - or else you will modify the weapon permanently
+
+    firearmBob(cf: CFrame): CFrame
+    - called just after when bob calculations are being made
+
+    firearmSway(cf: CFrame): CFrame
+    - called just after when bob calculations are being made
+
+## MeleeObject
+    preMeleeStep(): nil
+    - called just before step
+    
+    postMeleeStep(): nil
+    - called just after step
+
+    modifyMeleeStat(name: string, value: any): any
+    - modifies stats live
+    - if there is a table being passed, be sure to clone & return the table
+    - or else you will modify the weapon permanently
+
+    meleeBob(cf: CFrame): CFrame
+    - called just after when bob calculations are being made
+
+    meleeSway(cf: CFrame): CFrame
+    - called just after when bob calculations are being made
+
+## GrenadeObject
+    preGrenadeStep(): nil
+    - called just before step
+    
+    postGrenadeStep(): nil
+    - called just after step
+
+    modifyGrenadeStat(name: string, value: any): any
+    - modifies stats live
+    - if there is a table being passed, be sure to clone & return the table
+    - or else you will modify the weapon permanently
+
+    grenadeBob(cf: CFrame): CFrame
+    - called just after when bob calculations are being made
+
+    grenadeSway(cf: CFrame): CFrame
+    - called just after when bob calculations are being made

@@ -1,0 +1,39 @@
+Bitch Bot LLC - Phantom Forces - All Rights Reserved (this is a joke lmao)
+Camera - A library for making your eyes bleed
+- Note:
+- Camera system uses ObjectLinker, to see more functions, please decompile the game
+- and look for FixedCamera, FreeCamera, MainCamera, MenuCamera and SpectateCamera for more info
+
+type Cameras = FixedCamera | FreeCamera | MainCamera | MenuCamera | SpectateCamera
+
+camera:getTypes(): Cameras[] | {[index: string]: Cameras}
+- gets a dynamic table of camera types & objects
+
+camera:getEventTypes(): string[] | {[index: string]: true}
+- gets a list of namings used for event calls of each camera type
+
+camera:getType(): string
+- gets the current camera type
+
+camera:isType(type: string): boolean
+- checks if the current camera type matches
+
+camera:getActive(): Cameras
+- gets the current active camera
+
+camera:setActive(type: string)
+- sets the current active camera type
+
+#Events
+- all events can be connected to via library:connect(name: string, callback: function, identity?: string): EventConnection
+- for more information please see documentation under "events"
+
+- !!!Each camera has it's own event!!!
+- ex: preFixedStep & preMainStep
+
+pre...Step(): nil
+- called before the camera's step
+
+post...Step(): nil
+- called before the camera's step
+- this perfect for overriding camera movement just after

@@ -1,0 +1,49 @@
+Bitch Bot LLC - Core - All Rights Reserved (this is a joke lmao)
+Asset - A file system manager for folder structures
+
+asset:new(folder: string): AssetObject
+- creates a new asset controller object for a folder
+- if an asset already exists it will return that instead
+
+asset:getFilePath(path: string): string | nil
+- gets the file path of a direct path to a file
+- like instead of something/ok.txt -> something/
+
+asset:getFileName(path: string): string | nil
+- gets the file name from the path like ok.txt
+
+asset:getExtension(path: string): string | nil
+- gets the extension on the file or path
+
+#AssetObject
+
+object:setExtentions(exts: string[]): nil
+- this sets the extension limitation of the asset folder
+
+object:isFolder(path: string): boolean
+- this checks if the path is a folder
+
+object:isFile(path: string): boolean
+- this checks if the path is a file
+
+object:makeFolder(path: string): boolean
+- this makes a folder, the boolean is to check if it succeeded or not
+
+object:read(path: string): string | nil
+- this reads the file
+
+object:readJSON(path: string): {[index: any]: any} | any[] | nil
+- like :read, but parses it as a json
+
+object:write(path: string, data: string): boolean
+- writes data to a file, the boolean is to check if it succeeded or not
+
+object:writeJSON(path: string, data: {[index: any]: any} | any[]): boolean
+- like :write, but parses to a json
+
+object:list(path: string | nil): string[], string[]
+- grabs all the files and folders in a certain path
+- 1st string[] is the files, 2nd is the folders
+
+object:listAll(path: string | nil): string[], string[]
+- like :list, but as a recursive search through the file structure

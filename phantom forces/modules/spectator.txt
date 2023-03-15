@@ -1,0 +1,15 @@
+Bitch Bot LLC - Phantom Forces - All Rights Reserved (this is a joke lmao)
+Spectator - Because them cheaters are getting clever
+
+spectator:spectate(player: Player): nil
+- Spectates a player
+
+spectator:is(): Player | nil
+- Checks if you are spectating a player
+
+# Events
+- all events can be connected to via library:connect(name: string, callback: function, identity?: string): EventConnection
+- for more information please see documentation under "events"
+
+spectating(player: Player | nil): nil
+- Called when spectator state changes on a player

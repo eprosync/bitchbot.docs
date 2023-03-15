@@ -1,0 +1,20 @@
+Bitch Bot LLC - Phantom Forces - All Rights Reserved (this is a joke lmao)
+Chat - Because we sure do love spamming it
+- Note:
+- Commands library is already hooked into the chat system
+
+chat:say(msg: string): nil
+- sends a message to the game chat
+
+chat:queue(msg: string): nil
+- queues up the message to be sent, perfect for spamming and avoiding ratelimits
+
+#Events
+- all events can be connected to via library:connect(name: string, callback: function, identity?: string): EventConnection
+- for more information please see documentation under "events"
+
+say(message: string): nil
+- the message that you have sent to the game chat
+
+said(player: Player, message: string): nil
+- the message that a player has sent to the game chat

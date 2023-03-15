@@ -1,0 +1,78 @@
+Bitch Bot LLC - Core - All Rights Reserved (this is a joke lmao)
+Pathing - Create complex path finding systems using the "Grid by Cache™" method
+- WholeCream: I got tired of waiting and fucking did it anyways, cry about it
+
+interface Node {
+    position: Vector3,
+    grade?: number,
+    parent?: Node
+}
+
+interface NodeCache {
+    position: number[],
+    accessible: number[][],
+    blocked: number[][]
+}
+
+pathing:new(): Pather
+- Creates a new path finding system
+
+pathing:simplify(Vector3[]): Vector3[]
+- Reduces the vector node count by simplifying directions
+- Perfect for converting long distance travel into a singular line
+
+# Pather
+- A class created from `pathing:new(): Pather`
+
+pather:setIdentity(control: string): Pather
+- Sets the identity, this is perfect for if you change something
+- This is compared to the cache to see if it needs to be rebuilt
+
+pather:setNodeValidator(callback: function): Pather
+- For validating if a node placement to it's parent is valid
+    callback(self: Pather, parent_node: Node, child_node: Node, is_grid_searcher: boolean): boolean
+    - the "is_grid_searcher" is for the initial stage of finding a viable grid
+    - so for walking aglorithms we suggest you skip some raycasting for finding the grid
+
+pather:setNodeGenerator(callback: function): Pather
+- A node generator allows the pathing system to identify new possible points to search for
+    callback(self: Pather, node: Node): Vector3[]
+
+pather:setNodeGrader(callback: function): Pather
+- A grader for identifying the best possible node to look for next
+- This is the basis of path finding, a grade to check the most viable
+    callback(self: Pather, from: Vector3, to: Vector3, next_node: Node): number
+
+pather:setSearchTerminator(callback: function): Pather
+- A search terminator is used to check if the path is finished or not
+    callback(self: Pather, current: Node, to: Vector3): boolean
+
+pather:findNearestGrid(pos: Vector3): Vector3[]
+- Finds the nearest grid and path-finds to it using a simple algorithm
+- Obviously this is less complex than the whole system
+
+pather:solve(from: Vector3, to: Vector3): Vector3[] | false
+- Solves for the path
+
+pather:getProfile(): number, number
+- Returns the steps taken and the time it took in seconds
+
+pather:getNode(i: number): Node | nil
+- Gets a node by index
+
+pather:getNodeByPosition(pos: Vector3): Node | nil
+- Gets a node by it's position
+- During operations this will return nodes from the operation
+- However if not it would return the cached nodes (not NodeCache interface btw, still a "Node")
+
+pather:purgeCache(): Pather
+- Clears the cache of nodes
+
+pather:getCache(): Node[]
+- Gets the node cache of nodes found during solving
+
+pather:import(nodes: NodeCache[]): Pather
+- Imports nodes into the cache
+
+pather:export(): NodeCache[]
+- Exports nodes to a file format for saving

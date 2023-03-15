@@ -1,0 +1,69 @@
+Bitch Bot LLC - Phantom Forces - All Rights Reserved (this is a joke lmao)
+Character - A library for causing your character to do the funnis
+- Note:
+- Character system uses ObjectLinker, to see more functions, please decompile the game
+- and look for CharacterInterface & CharacterObject for more info
+
+character:isAlive(): boolean
+- checks if your character is alive or not
+
+character:getController(): CharacterObject
+- gets your character controller
+- usually this isn't needed but can be used if so
+
+character:getPosition(): Vector3
+- gets your current position based on your rootpart 
+
+character:getAbsolutePosition(): Vector3
+- gets your current position on the server
+
+character:getStanceOffset(): number
+- gets your current stance offset
+
+character:forceReplication(position?: Vector3, angle?: Vector2, time?: number): nil
+- forces a replication signal to the server of your character
+
+character:raycast(origin: Vector3, offset: Vector3): RaycastResults | false
+- creates a raycast which is affected by collidables to your character
+
+character:canMoveTo(position: Vector3, offset: Vector3)
+- checks if your character is able to move to the desired position
+
+character:findMinimumMoveTo(position: Vector3, offset: Vector3)
+- finds the minimum position that you can move towards
+
+character:isMovingTo(): number
+- checks if :moveTo is being used
+- the number represents the stacks of :moveTo being used
+
+character:moveTo(position: Vector3, offset: Vector3): nil
+- moves you towards your desired position
+- !!! this only moves your replication, not your body !!!
+- !!! before using this please consult the developers !!!
+- this won't work without a specific setting being used
+
+character:moveRootTo(position): nil
+- moves your rootpart towards the desired position
+- !!! this will despawn you if you are too far away from your origin replication !!!
+
+character:moveByPath(path: Vector3[], reverse: boolean, offset: Vector3): nil
+- moves you by a specified path, perfect for path finding
+
+#Events
+- all events can be connected to via library:connect(name: string, callback: function, identity?: string): EventConnection
+- for more information please see documentation under "events"
+
+preStep(): nil
+- called just before step
+
+postStep(): nil
+- called just after step
+
+onSpawn(): nil
+- called when you spawn in
+
+onDespawn(): nil
+- called when you despawn
+
+onAliveChanged(alive: boolean): nil
+- called when your alive state changes

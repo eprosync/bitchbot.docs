@@ -1,0 +1,48 @@
+Bitch Bot LLC - Core - All Rights Reserved (this is a joke lmao)
+Priority - For designating targets and locality of targets per library
+
+priority:get(player: Player | string | number): number, string | nil
+- Gets the priority level of a player and it's reason for it
+
+priority:set(player: Player | string | number, level: number, reason?: string): nil
+- Sets the priority level of a player, and it's reason if needed
+
+priority:new(name: string): PriorityLocality
+- Creates a new localized priority
+- Localized priority are like sub-priorities that do not save
+
+# Event
+- all events can be connected to via library:connect(name: string, callback: function, identity?: string): EventConnection
+- for more information please see documentation under "events"
+
+Changed(player: Player, old: number, new: number): nil
+- Called when a priority changes on a player
+
+# PriorityLocality
+    - A class created by `priority:new(name: string): PriorityLocality`
+    - This is used as a separate priority handler so that each library get's their own way of user priority
+
+    locality:get(player: Player | string | number): number, string | nil
+    - Gets the priority level of a player and it's reason for it
+
+    locality:set(player: Player | string | number, level: number, reason?: string): PriorityLocality
+    - Sets the priority level of a player, and it's reason if needed
+
+    locality:export(): {UserId: string, Level: number, Reason?: string}[]
+    - exports the list of priorities in this locality
+
+    locality:import({UserId: string, Level: number, Reason?: string}[]): PriorityLocality
+    - resets and imports a new set of priorities
+
+    locality:clear(): nil
+    - Clears this locality listing of priorities
+
+    locality:remove(): nil
+    - Removes this locality from priority systems
+
+    # Event
+    - all events can be connected to via library:connect(name: string, callback: function, identity?: string): EventConnection
+    - for more information please see documentation under "events"
+    
+    Changed(player: Player, old: number, new: number): nil
+    - Called when a priority changes on a player

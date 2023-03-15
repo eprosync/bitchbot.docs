@@ -1,0 +1,97 @@
+Bitch Bot LLC - Core - All Rights Reserved (this is a joke lmao)
+BSL - An extraordinarly simple yet powerful message processor for chat spams
+- Further known as Bitchy Spammer Langauage (yes, stfu)
+
+bsl:new(name: string): BSLHandler
+- returns a handler responsible for controlling a defined pre-processing setup
+
+bsl:registerStatement(object: any, class: string, base?: string): nil
+- registers a new global statement
+
+bsl:registerInserter(object: any, class: string, base?: string): nil
+- registers a new global inserter
+
+# BSLHandler
+- Handlers are like managers for each processor
+- Handlers allow you to organize and read what different kinds of message handling you want
+- like #respond:kill - responds to kill
+
+handler:import(dataset: string): BSLHandler
+- imports a new dataset for BSL to generate processors from
+
+handler:getAll(): BSLProcessor[] | {[index: string]: BSLProcessor}
+- gets a list of processors that has been generated
+
+handler:getDefault(): BSLProcessor | nil
+- gets a non-argumented processor, basically no arguments passed into it
+
+handler:getStatement(name: string): BSLStatement | nil
+- gets the desired statement handler
+
+handler:getStatements(): BSLStatement[]
+- gets a list of all statements available
+
+handler:registerStatement(object: any, class: string, base?: string): BSLHandler
+- registers a new statement, localized to this handler & processors
+
+handler:getInserter(name: string): BSLInserter | nil
+- gets the desired insert handler
+
+handler:getInserters(): BSLInserter[]
+- gets a list of all inserters available
+
+handler:registerInserter(object: any, class: string, base?: string): BSLHandler
+- registers a new inserter, localized to this handler & processors
+
+# BSLProcessor
+- These are the power houses for message processing
+- It's responsible for both inserters and statement handling
+- like [lower]{player}[end] - lower cased player name
+- as well as partial statements like [lower:1,5]HELLO WORLD -> hello WORLD
+
+processor:getID(): string
+- A unique ID of this processor
+
+processor:getArguments(): string[]
+- Gets a list of arguments that this processor has been given
+
+processor:getLines(): string[]
+- Gets a list of lines the processor is responsible for processing
+
+processor:next(args: {[index: string]: any}): string
+- Processes and fetches the next string
+- You would pass arguments into :next to provide data for an inserter, if applicable
+
+# BSLInserter
+- when creating an inserter class you should override it's functions
+- inserters are basically string replacers looking for "{name}" arguments
+- *Inserters run before statements!
+
+inserter:process(): string
+- used to replace the argument into what is desired
+
+# BSLStatement
+- statements acts as modifiers, they allow you to read a set of a string
+- modify them, and then respond back to the processor with what to replace them with
+
+inserter:process(sample: string): string
+- used to replace the argument into what is desired
+
+# Inserters
+- yea these will become like, randomplayer -> player.random later on, just to make it look nice
+- inserters are as they say, they insert,
+- ex: this is a random number: {random,1,100}
+- would become: this is a random number: 57
+
+{randomplayer} - gets a random player's name
+{random:A,B} - returns a random number from A to B
+{uuid} - returns a UUID, similar to the bbot keys... if you know what I mean :)
+
+# Statements
+- statements are like string modifiers,
+- ex: this [lower]WILL BE LOWERCASED[end]
+- would become: this will be lowercased
+
+[lower] - lowercases a string
+[upper] - uppercases a string
+[len] - gets the length of a string
