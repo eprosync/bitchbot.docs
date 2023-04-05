@@ -29,6 +29,12 @@ router:new(options: table): RouterObject
     - get's this router's network ID, this is used for communication and identification
     - this will only be "nil" if not logged in
 
+    object:setStorage(data: table | nil): nil
+    - sets the router shared-storage
+
+    object:getStorage(): table
+    - gets the shared-data stored on the router
+
     object:setMetaData(data: string | nil): nil
     - set's the metadata of this router
     - metadata is something that clients have stored onto them, you can use this to
