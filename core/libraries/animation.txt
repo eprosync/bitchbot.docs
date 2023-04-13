@@ -1,0 +1,109 @@
+Bitch Bot LLC - Core - All Rights Reserved (this is a joke lmao)
+Animation² - A state machine controller for animations, which is just Tween on steroids
+
+- There are 2 types of state machines
+# Enum.Animation.Type
+Sequential - Time Dependant like keyframes
+Combinational - Time Independant, as in the play all at once
+
+- There are 30 types of state easing
+- I recommend looking at the math library for this
+# Enum.Animation.Easing
+Linear, InSine, OutSine, InOutSine, InQuad,
+OutQuad, InOutQuad, InCubic, OutCubic, InOutCubic,
+InQuart, OutQuart, InOutQuart, InQuint, OutQuint,
+InOutQuint, InExpo, OutExpo, InOutExpo, InCirc,
+OutCirc, InOutCirc, InBack, OutBack, InOutBack,
+InElastic, OutElastic, InOutElastic, InBounce,
+OutBounce, InOutBounce
+
+animation:new(type: Enum.Animation.Type): Sequential | Combinational
+- creates a new animation state machine
+- all state machine are derived from a base state machine
+- so you should find some similar functions across them
+
+# Base
+- this is the main class that all animation state machines derive from
+
+base:initial(value: any): Base
+- sets the first value of the animation, you should always call this before starting any timeline
+
+base:add(duration: number, data: any, type?: Enum.Animation.Easing = Linear): Base
+- adds a value to the timeline
+
+base:union(id: string, type: Enum.Animation.Type): Sequential | Combinational
+- adds a sub-timeline with a specified type, just like animation:new()
+
+base:ret(): Sequential | Combinational
+- if this is a union'ed animation, this will let you return back to the origin animation
+
+base:remapper(callback: function): Base
+- changes the remapping engine to use a custom version, perfect for custom timelines
+- by default we use a standard value-remap approach
+- callback(frame: number, fraction: number)
+    - use the frame number to determine the animation date from base:list()
+
+base:clock(): number
+- gets the current runtime clock of the timeline
+- this is the core of animations, changing this will affect the timeline
+
+base:step(delta?: number): Base
+- steps the state machine, like async but must be ran manually
+- delta may only be provided if you are using a Delta type clock
+
+base:async(connection: Event.Listener | RBXScriptSignal, delta?: number): sequential
+- runs the state machine as a async process to an event or signal
+- perfect if you need to do something just after
+- this will not call base:start(), you have to call this to start the animation
+
+base:duration(): number
+- gets the duration of the timeline
+
+base:frame(): number
+- gets the current frame the timeline is on
+
+base:process(): number, number
+- gets the current frame and the fraction of progress on the frame
+
+base:start(): Base
+- tells the timeline to continue or start the animation
+
+base:finish(): Base
+- tells the animation to stop, signaling a finalized animation
+
+base:halt(): Base
+- tells the animation to not go any further, waiting for a continuation or reset
+
+base:reset(): Base
+- tells the animation to reset itself and start back at the beginning
+
+base:list(): AnimationStore[]
+- gets an array which is the timeline of all saved data to play
+
+base:machines(): (Sequential | Combinational)[]
+- gets an array of all state machines under this one
+
+# Events
+    start(state_machine: Base): nil
+    - called when base:start() is called
+
+    finish(state_machine: Base): nil
+    - called when base:finish() is called
+
+    next(state_machine: Base, frame: number, fraction: number, data: any): nil
+    - called when the state machine steps and calculates a the next frame
+    - you can use this to create custom animations
+    
+# Sequential
+- This is a version of the state machine but animations follow standard order
+ex: Here's how the frames are played
+0 -> 1 -> 2 -> 3 -> 4 -> 5
+This is a normal standard order
+
+# Combinational
+- This is a version of the state machine but animations follow parallel order
+ex: Here's how the frames are played
+0 -> 1
+0 -> 2
+0 -> 3
+This is a parallel order
