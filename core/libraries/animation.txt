@@ -1,14 +1,19 @@
 Bitch Bot LLC - Core - All Rights Reserved (this is a joke lmao)
 Animation² - A state machine controller for animations, which is just Tween on steroids
 
-- There are 2 types of state machines
 # Enum.Animation.Type
+- There are 2 types of state machines
 Sequential - Time Dependant like keyframes
 Combinational - Time Independant, as in the play all at once
 
+# Enum.Animation.Rate
+- There are 2 types of clocks rates
+Clock - Uses os.clock() to perceive a change in time
+Delta - Requires the use of :step() or :async() to provide a change in time
+
+# Enum.Animation.Easing
 - There are 30 types of state easing
 - I recommend looking at the math library for this
-# Enum.Animation.Easing
 Linear, InSine, OutSine, InOutSine, InQuad,
 OutQuad, InOutQuad, InCubic, OutCubic, InOutCubic,
 InQuart, OutQuart, InOutQuart, InQuint, OutQuint,
@@ -17,7 +22,7 @@ OutCirc, InOutCirc, InBack, OutBack, InOutBack,
 InElastic, OutElastic, InOutElastic, InBounce,
 OutBounce, InOutBounce
 
-animation:new(type: Enum.Animation.Type): Sequential | Combinational
+animation:new(type: Enum.Animation.Type, rate: Enum.Animation.Rate): Sequential | Combinational
 - creates a new animation state machine
 - all state machine are derived from a base state machine
 - so you should find some similar functions across them
