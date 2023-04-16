@@ -39,8 +39,15 @@ base:add(duration: number, data: any, type?: Enum.Animation.Easing = Linear): Ba
 base:union(id: string, type: Enum.Animation.Type): Sequential | Combinational
 - adds a sub-timeline with a specified type, just like animation:new()
 
+base:clear(): Base
+- clears all frames and machines
+
 base:ret(): Sequential | Combinational
 - if this is a union'ed animation, this will let you return back to the origin animation
+
+base:windup(): Base
+- called when adding a new keyframe
+- this checks the durations and modifies them according to sub-machines
 
 base:remapper(callback: function): Base
 - changes the remapping engine to use a custom version, perfect for custom timelines
@@ -52,7 +59,7 @@ base:clock(): number
 - gets the current runtime clock of the timeline
 - this is the core of animations, changing this will affect the timeline
 
-base:step(delta?: number): Base
+base:step(delta?: number): number, number, any
 - steps the state machine, like async but must be ran manually
 - delta may only be provided if you are using a Delta type clock
 
