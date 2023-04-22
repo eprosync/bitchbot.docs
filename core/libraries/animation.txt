@@ -102,7 +102,7 @@ base:machines(): (Sequential | Combinational)[]
     finish(state_machine: Base): nil
     - called when base:finish() is called
 
-    next(state_machine: Base, frame: number, fraction: number, data: any): nil
+    next(state_machine: Base, frame: number, fraction: number, position: any, velocity: any): nil
     - called when the state machine steps and calculates a the next frame
     - you can use this to create custom animations
     
