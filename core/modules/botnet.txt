@@ -5,6 +5,9 @@ BotNet - A P2P network with a server-side medium utilizing router² to create ef
 - *All functions are derived from RouterObject
 - *Note: the table "botnet" is a RouterObject
 
+botnet:join(name: string): Router
+- attempts to join a botnet, depends on how router is configured
+
 botnet:getMaster(): RouterClient | nil
 - gets the master controller of all the bots
 
