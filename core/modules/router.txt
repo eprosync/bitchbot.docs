@@ -1,12 +1,14 @@
 Bitch Bot LLC - Core - All Rights Reserved (this is a joke lmao)
 Router² - A powerful all-in-one multi-box controller for botting mayhem
+- Now support new "Stellar" back-end
 
 router:new(options: table): RouterObject
 - creates a new router connection to the backend
+- if the router does not exist, it will create it
+- however if it already exists it will attempt to join it
 - here's a list of options
 {
     name: string,
-    password?: string,
     metadata?: string
 }
 
@@ -100,18 +102,94 @@ router:new(options: table): RouterObject
     
     client:getUID(): number
     - gets their bbot account UID
+
+    client:getType(): "Roblox" | "Discord" | "Website" | "CLI"
+    - gets the type of connection, this can be used to identify what they are
+
+    #Roblox
+    - this is only populated if they are a roblox account
+        client:getUsername(): string
+        - gets their roblox username
+
+        client:getUserId(): string
+        - gets their roblox userid
+
+        client:getGameId(): string
+        - gets their gameID
+
+        client:getPlaceId(): string
+        - gets their placeID
+
+        client:getJobId(): string
+        - gets their jobID
+
+    #Discord
+    - this is only populated if they are a discord account
+        client:getUsername(): string
+        - gets the discord username
+
+        client:getUserId(): string
+        - gets their discord ID
+
+    #Website
+    - this is only populated if they are a website account
+        client:getNickname(): string
+        - gets their website nickname
+
+        client:getUserId(): string
+        - gets their website ID, basically their profile ID
+
+    #CLI
+    - this is only populated if they are from a commandline interface
+        client:getIdentifier(): string
+        - gets their CLI identifier
+
+#Discord
+- You can now login to your personal networks via discord
+- Networks open this way are permanently opened till requested to be closed as well
+- here's some examples
+
+/router new name:botnet-12
+- creates a new router for usage
+
+/router payload file:botnet.lua
+- adds a lua payload for when joining the router, you can use this to auto-configure clients
+
+/router switch name:botnet-12
+- switches the discord client to use botnet-12
+
+/router send file:some_json_file.json
+/router send message:[1,2,3]
+- sends a message to all clients connected
+
+/router list
+- lists all clients connected to this router
+
+/router send users:AC8506 message:{"something":123}
+- sends a message to a specific set of client(s) (separated by ",")
+
+/router allow user:wholecream
+- allows bbot user wholecream to connect to this router (by default the router is blocking everyone)
+
+/router allow lite:true
+- allows lite user to connect to this router
+
+/router close
+- force closes the router, disconnecting all clients in the process
+
+#RouterPayload
+- in the payload both the acquire ENV and the router itself is pushed
+- their names are "acquire" and "self"
+- here's an example
+
+self:connect("join", function(client)
+    if client:getRoblox() then
     
-    client:getUsername(): string
-    - gets their roblox username
+    end
+end, "botnet:joined")
 
-    client:getUserId(): string
-    - gets their roblox userid
-
-    client:getGameId(): string
-    - gets their gameID
-
-    client:getPlaceId(): string
-    - gets their placeID
-
-    client:getJobId(): string
-    - gets their jobID
+-- this is ran when we either close, disconnect or something else happens to the router.
+-- use this to unload your changes.
+return function()
+    self:disconnect("join", "botnet:joined")
+end
